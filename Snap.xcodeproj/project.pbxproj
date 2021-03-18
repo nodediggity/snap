@@ -15,6 +15,8 @@
 		6A2D1E982603C0D10011F299 /* XCTestCase+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2D1E972603C0D10011F299 /* XCTestCase+Data.swift */; };
 		6A2D1E9D2603C0EB0011F299 /* XCTestCase+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2D1E9C2603C0EB0011F299 /* XCTestCase+Error.swift */; };
 		6A2D1EA82603C1170011F299 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2D1EA72603C1170011F299 /* XCTestCase+MemoryLeakTracking.swift */; };
+		6A2D1EAD2603C1FA0011F299 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2D1EAC2603C1FA0011F299 /* Endpoint.swift */; };
+		6A2D1EB22603C2230011F299 /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2D1EB12603C2230011F299 /* EndpointTests.swift */; };
 		6ADACCA42603BE17004E2A05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADACCA32603BE17004E2A05 /* AppDelegate.swift */; };
 		6ADACCA62603BE17004E2A05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADACCA52603BE17004E2A05 /* SceneDelegate.swift */; };
 		6ADACCA82603BE17004E2A05 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADACCA72603BE17004E2A05 /* ContentView.swift */; };
@@ -50,6 +52,8 @@
 		6A2D1E972603C0D10011F299 /* XCTestCase+Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Data.swift"; sourceTree = "<group>"; };
 		6A2D1E9C2603C0EB0011F299 /* XCTestCase+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Error.swift"; sourceTree = "<group>"; };
 		6A2D1EA72603C1170011F299 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
+		6A2D1EAC2603C1FA0011F299 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		6A2D1EB12603C2230011F299 /* EndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
 		6ADACCA02603BE17004E2A05 /* Snap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ADACCA32603BE17004E2A05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6ADACCA52603BE17004E2A05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 		6A2D1E6E2603BF680011F299 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				6A2D1EAC2603C1FA0011F299 /* Endpoint.swift */,
 				6A2D1E6F2603BF6D0011F299 /* HTTPClient.swift */,
 				6A2D1E742603BF980011F299 /* URLSessionHTTPClient.swift */,
 			);
@@ -110,6 +115,7 @@
 		6A2D1E792603C0420011F299 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				6A2D1EB12603C2230011F299 /* EndpointTests.swift */,
 				6A2D1E7A2603C04E0011F299 /* URLSessionHTTPClientTests.swift */,
 				6A2D1E852603C0780011F299 /* TestHelpers */,
 			);
@@ -331,6 +337,7 @@
 				6A2D1E752603BF980011F299 /* URLSessionHTTPClient.swift in Sources */,
 				6ADACCA62603BE17004E2A05 /* SceneDelegate.swift in Sources */,
 				6A2D1E702603BF6D0011F299 /* HTTPClient.swift in Sources */,
+				6A2D1EAD2603C1FA0011F299 /* Endpoint.swift in Sources */,
 				6ADACCA82603BE17004E2A05 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +351,7 @@
 				6A2D1E902603C0AB0011F299 /* XCTestCase+URL.swift in Sources */,
 				6A2D1E9D2603C0EB0011F299 /* XCTestCase+Error.swift in Sources */,
 				6A2D1E872603C0810011F299 /* URLProtocolStub.swift in Sources */,
+				6A2D1EB22603C2230011F299 /* EndpointTests.swift in Sources */,
 				6A2D1EA82603C1170011F299 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
