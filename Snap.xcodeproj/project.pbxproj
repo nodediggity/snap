@@ -141,6 +141,31 @@
 			path = TestHelpers;
 			sourceTree = "<group>";
 		};
+		6AA54F9B2603C89000AC82A9 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				6ADACCA32603BE17004E2A05 /* AppDelegate.swift */,
+				6ADACCA52603BE17004E2A05 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		6AA54F9C2603C8BA00AC82A9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6AA54F9D2603C8BD00AC82A9 /* Launch */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6AA54F9D2603C8BD00AC82A9 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				6ADACCAE2603BE19004E2A05 /* LaunchScreen.storyboard */,
+			);
+			path = Launch;
+			sourceTree = "<group>";
+		};
 		6ADACC972603BE16004E2A05 = {
 			isa = PBXGroup;
 			children = (
@@ -165,13 +190,12 @@
 			isa = PBXGroup;
 			children = (
 				6ADACCB12603BE19004E2A05 /* Info.plist */,
-				6ADACCA32603BE17004E2A05 /* AppDelegate.swift */,
 				6ADACCA72603BE17004E2A05 /* ContentView.swift */,
-				6ADACCA52603BE17004E2A05 /* SceneDelegate.swift */,
 				6ADACCA92603BE19004E2A05 /* Assets.xcassets */,
-				6ADACCAE2603BE19004E2A05 /* LaunchScreen.storyboard */,
+				6AA54F9B2603C89000AC82A9 /* Application */,
 				6A2D1E6D2603BF3F0011F299 /* Networking */,
 				6ADACCAB2603BE19004E2A05 /* Preview Content */,
+				6AA54F9C2603C8BA00AC82A9 /* Views */,
 			);
 			path = Snap;
 			sourceTree = "<group>";
