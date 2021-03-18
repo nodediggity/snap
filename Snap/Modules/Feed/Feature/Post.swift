@@ -12,6 +12,7 @@ struct Post: Hashable {
     let id: String
     let imageURL: URL
     let likeCount: Int
+    let user: User
     
     struct User: Hashable {
         let id: String
