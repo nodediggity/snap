@@ -87,7 +87,7 @@ private extension FeedViewModelTests {
             return publisher.eraseToAnyPublisher()
         }
         
-        func loadFeedCompletes(with result: FeedLoaderResult, at index: Int = 0) {
+        func loadFeedCompletes(with result: FeedViewModel.LoaderResult, at index: Int = 0) {
             switch result {
                 case let .success(feed):
                     requests[index].send(feed)
@@ -100,13 +100,13 @@ private extension FeedViewModelTests {
 //            return requests.count
 //        }
 //
-//        private var requests: [FeedLoaderCompletion] = []
+//        private var requests: [FeedViewModel.LoaderCompletion] = []
 //
-//        func loadFeed(completion: @escaping FeedLoaderCompletion) {
+//        func loadFeed(completion: @escaping FeedViewModel.LoaderCompletion) {
 //            requests.append(completion)
 //        }
 //
-//        func loadFeedCompletes(with result: FeedLoaderResult, at index: Int = 0) {
+//        func loadFeedCompletes(with result: FeedViewModel.LoaderResult, at index: Int = 0) {
 //            requests[index](result)
 //        }
     }
