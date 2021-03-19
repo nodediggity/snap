@@ -17,10 +17,11 @@ class FeedSnapshotTests: XCTestCase {
         let content = feedWithContent
         let viewModel = FeedViewModel(loader: { $0(.success(content)) })
         let sut = makeSUT(viewModel: viewModel)
-        
+        sut.view.enforceLayoutCycle()
         viewModel.load()
         
         assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_CONTENT_light")
+        executeRunLoopToCleanUpReferences()
     }
 }
 
@@ -39,4 +40,15 @@ private extension FeedSnapshotTests {
             Post(id: "id 2", imageURL: makeURL(), likeCount: 34, user: .init(id: UUID().uuidString, name: "Some'Other Name", imageURL: makeURL()))
         ]
     }
+}
+
+extension UIView {
+    func enforceLayoutCycle() {
+        layoutIfNeeded()
+        RunLoop.main.run(until: Date())
+    }
+}
+
+private func executeRunLoopToCleanUpReferences() {
+    RunLoop.current.run(until: Date())
 }
