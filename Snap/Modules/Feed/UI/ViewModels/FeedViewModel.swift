@@ -11,7 +11,7 @@ typealias FeedLoaderResult = Result<[Post], Error>
 typealias FeedLoaderCompletion = (FeedLoaderResult) -> Void
 typealias FeedLoader = ((@escaping FeedLoaderCompletion) -> Void)
 
-struct FeedViewModel {
+class FeedViewModel {
      
     var onFeedLoad: (([Post]) -> Void)?
     
@@ -22,9 +22,9 @@ struct FeedViewModel {
     }
     
     func load() {
-        loader { result in
+        loader { [weak self] result in
             if let feed = try? result.get() {
-                onFeedLoad?(feed)
+                self?.onFeedLoad?(feed)
             }
         }
     }
