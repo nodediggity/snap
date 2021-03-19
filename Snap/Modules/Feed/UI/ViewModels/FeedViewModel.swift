@@ -7,11 +7,14 @@
 
 import Foundation
 
-typealias FeedLoaderCompletion = (Result<[Post], Error>) -> Void
+typealias FeedLoaderResult = Result<[Post], Error>
+typealias FeedLoaderCompletion = (FeedLoaderResult) -> Void
 typealias FeedLoader = ((@escaping FeedLoaderCompletion) -> Void)
 
 struct FeedViewModel {
      
+    var onFeedLoad: (([Post]) -> Void)?
+    
     private let loader: FeedLoader
     
     init(loader: @escaping FeedLoader) {
@@ -19,6 +22,10 @@ struct FeedViewModel {
     }
     
     func load() {
-        loader { _ in }
+        loader { result in
+            if let feed = try? result.get() {
+                onFeedLoad?(feed)
+            }
+        }
     }
 }
