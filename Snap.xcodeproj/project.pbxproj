@@ -26,6 +26,7 @@
 		6AA54FE42603EE3800AC82A9 /* RemoteLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA54FE32603EE3800AC82A9 /* RemoteLoader.swift */; };
 		6AA54FE92603EEE900AC82A9 /* RemoteLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA54FE82603EEE900AC82A9 /* RemoteLoaderTests.swift */; };
 		6AA54FEE2603EFD900AC82A9 /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA54FED2603EFD900AC82A9 /* HTTPClientSpy.swift */; };
+		6AA54FFA260473CC00AC82A9 /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA54FF9260473CC00AC82A9 /* CombineHelpers.swift */; };
 		6ADACCA42603BE17004E2A05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADACCA32603BE17004E2A05 /* AppDelegate.swift */; };
 		6ADACCA62603BE17004E2A05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADACCA52603BE17004E2A05 /* SceneDelegate.swift */; };
 		6ADACCA82603BE17004E2A05 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADACCA72603BE17004E2A05 /* ContentView.swift */; };
@@ -72,6 +73,7 @@
 		6AA54FE32603EE3800AC82A9 /* RemoteLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLoader.swift; sourceTree = "<group>"; };
 		6AA54FE82603EEE900AC82A9 /* RemoteLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLoaderTests.swift; sourceTree = "<group>"; };
 		6AA54FED2603EFD900AC82A9 /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
+		6AA54FF9260473CC00AC82A9 /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 		6ADACCA02603BE17004E2A05 /* Snap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ADACCA32603BE17004E2A05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6ADACCA52603BE17004E2A05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -287,6 +289,14 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		6AA54FF8260473C000AC82A9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6AA54FF9260473CC00AC82A9 /* CombineHelpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		6ADACC972603BE16004E2A05 = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +324,7 @@
 				6ADACCA72603BE17004E2A05 /* ContentView.swift */,
 				6ADACCA92603BE19004E2A05 /* Assets.xcassets */,
 				6AA54F9B2603C89000AC82A9 /* Application */,
+				6AA54FF8260473C000AC82A9 /* Helpers */,
 				6AA54FA12603C96200AC82A9 /* Modules */,
 				6A2D1E6D2603BF3F0011F299 /* Networking */,
 				6ADACCAB2603BE19004E2A05 /* Preview Content */,
@@ -484,6 +495,7 @@
 				6A2D1E752603BF980011F299 /* URLSessionHTTPClient.swift in Sources */,
 				6ADACCA62603BE17004E2A05 /* SceneDelegate.swift in Sources */,
 				6A2D1E702603BF6D0011F299 /* HTTPClient.swift in Sources */,
+				6AA54FFA260473CC00AC82A9 /* CombineHelpers.swift in Sources */,
 				6AA54FE42603EE3800AC82A9 /* RemoteLoader.swift in Sources */,
 				6AA54FAE2603CBFD00AC82A9 /* FeedMapper.swift in Sources */,
 				6A2D1EAD2603C1FA0011F299 /* Endpoint.swift in Sources */,
