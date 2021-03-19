@@ -8,6 +8,23 @@
 import Foundation
 import Combine
 
+// MARK:- HTTPClient
+extension HTTPClient {
+    typealias Publisher = AnyPublisher<(data: Data, response: HTTPURLResponse), Error>
+    
+    func dispatchPublisher(for request: URLRequest) -> Publisher {
+        var task: HTTPClientTask?
+        
+        return Deferred {
+            Future { completion in
+                task = self.dispatch(request, completion: completion)
+            }
+        }
+        .handleEvents(receiveCancel: { task?.cancel() })
+        .eraseToAnyPublisher()
+    }
+}
+
 // MARK:- FeedViewModel
 extension FeedViewModel {
     convenience init(loadFeedPublisher publisher: @escaping () -> AnyPublisher<[Post], Error>) {
