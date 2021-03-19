@@ -12,11 +12,9 @@ final class FeedViewModel: ObservableObject {
     typealias LoaderResult = Result<[Post], Error>
     typealias LoaderCompletion = (LoaderResult) -> Void
     typealias Loader = ((@escaping LoaderCompletion) -> Void)
-    
-    typealias Observer<T> = (T) -> Void
-     
-    @Published var onFeedLoad: Observer<[Post]>?
-    @Published var onLoadingStateChange: Observer<Bool>?
+         
+    @Published var feed: [Post] = []
+    @Published var isLoading: Bool = false
 
     private let loader: Loader
     
@@ -25,12 +23,12 @@ final class FeedViewModel: ObservableObject {
     }
     
     func loadFeed() {
-        onLoadingStateChange?(true)
+        isLoading = true
         loader { [weak self] result in
             if let feed = try? result.get() {
-                self?.onFeedLoad?(feed)
+                self?.feed = feed
             }
-            self?.onLoadingStateChange?(false)
+            self?.isLoading = false
         }
     }
 }

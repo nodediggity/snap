@@ -11,32 +11,20 @@ import SwiftUI
 struct FeedListView: View {
     
     @ObservedObject private(set) var viewModel: FeedViewModel
-    @State private var isLoading: Bool = false
-    @State private var items: [Post] = []
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            if isLoading {
+            if viewModel.isLoading {
                 LoadingView()
                     .frame(width: 50.0, height: 50.0)
                     .foregroundColor(Color("3dc6a7"))
             } else {
-                ForEach(items, id: \.id) { item in
+                ForEach(viewModel.feed, id: \.id) { item in
                     Text("Post \(item.id)")
                 }
             }
         }
-        .onAppear(perform: onLoad)
+        .onAppear(perform: viewModel.loadFeed)
         .padding()
-    }
-}
-
-private extension FeedListView {
-    
-    func onLoad() {
-        viewModel.onLoadingStateChange = { self.isLoading = $0 }
-        viewModel.onFeedLoad = { self.items = $0 }
-        
-        viewModel.loadFeed()
     }
 }

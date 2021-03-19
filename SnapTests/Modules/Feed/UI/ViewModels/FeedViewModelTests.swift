@@ -21,7 +21,7 @@ class FeedViewModelTests: XCTestCase {
         let (sut, loader) = makeSUT()
         XCTAssertEqual(loader.loadFeedCount, 0)
         
-        sut.load()
+        sut.loadFeed()
         XCTAssertEqual(loader.loadFeedCount, 1)
     }
     
@@ -29,38 +29,24 @@ class FeedViewModelTests: XCTestCase {
         let feed = makeFeed()
         let (sut, loader) = makeSUT()
         
-        sut.onFeedLoad = { received in
-            XCTAssertEqual(received, feed)
-        }
+        sut.loadFeed()
+        loader.loadFeedCompletes(with: .success(feed))
         
-        sut.load()
-        loader.loadFeedCompletes(with: .success(feed))
+        XCTAssertEqual(sut.feed, feed)
     }
-    
-    func test_load_does_not_deliver_result_after_instance_has_been_deallocated() {
-        let loader = LoaderSpy()
-        let feed = makeFeed()
-        var sut: FeedViewModel? = FeedViewModel(loadFeedPublisher: loader.loadFeedPublisher)
 
-        var output: [Any] = []
-        sut?.onFeedLoad = { output.append($0) }
-        sut?.load()
-        sut = nil
 
-        loader.loadFeedCompletes(with: .success(feed))
-        XCTAssertTrue(output.isEmpty)
-     }
-    
     func test_on_load_feed_notifies_clients_of_loading_state_change() {
         let feed = makeFeed()
         let (sut, loader) = makeSUT()
-        
-        var output: [Bool] = []
-        sut.onLoadingStateChange = { output.append($0) }
-            
-        sut.load()
+
+        XCTAssertFalse(sut.isLoading)
+
+        sut.loadFeed()
+        XCTAssertTrue(sut.isLoading)
+
         loader.loadFeedCompletes(with: .success(feed))
-        XCTAssertEqual(output, [true, false])
+        XCTAssertFalse(sut.isLoading)
     }
 }
 
