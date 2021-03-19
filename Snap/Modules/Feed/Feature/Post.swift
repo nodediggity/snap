@@ -20,3 +20,5 @@ struct Post: Hashable {
         let imageURL: URL
     }
 }
+
+extension Post: Identifiable { }
