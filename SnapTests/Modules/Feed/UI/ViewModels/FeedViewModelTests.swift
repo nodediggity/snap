@@ -28,7 +28,7 @@ class FeedViewModelTests: XCTestCase {
     func test_on_load_feed_success_delivers_successfully_loaded_feed() {
         let exp = expectation(description: "await completion")
         let feed = makeFeed()
-        var (sut, loader) = makeSUT()
+        let (sut, loader) = makeSUT()
         
         sut.onFeedLoad = { received in
             XCTAssertEqual(received, feed)
@@ -39,13 +39,28 @@ class FeedViewModelTests: XCTestCase {
         loader.loadFeedCompletes(with: .success(feed))
         wait(for: [exp], timeout: 1.0)
     }
+    
+    func test_load_does_not_deliver_result_after_instance_has_been_deallocated() {
+        let loader = LoaderSpy()
+        let feed = makeFeed()
+        var sut: FeedViewModel? = FeedViewModel(loader: loader.loadFeed(completion:))
+
+        var output: [Any] = []
+        sut?.onFeedLoad = { output.append($0) }
+        sut?.load()
+        sut = nil
+        
+        loader.loadFeedCompletes(with: .success(feed))
+        XCTAssertTrue(output.isEmpty)
+     }
 }
 
 private extension FeedViewModelTests {
     
-    func makeSUT() -> (sut: FeedViewModel, loader: LoaderSpy) {
+    func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedViewModel, loader: LoaderSpy) {
         let loader = LoaderSpy()
         let sut = FeedViewModel(loader: loader.loadFeed(completion:))
+        trackForMemoryLeaks(loader, file: file, line: line)
         return (sut, loader)
     }
     
