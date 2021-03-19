@@ -8,6 +8,7 @@
 import Foundation
 
 final class RemoteLoader<Resource> {
+    private let requestURL: URL
     private let client: HTTPClient
     private let mapper: Mapper
     
@@ -19,12 +20,14 @@ final class RemoteLoader<Resource> {
     typealias Result = Swift.Result<Resource, Swift.Error>
     typealias Mapper = (Data, HTTPURLResponse) throws -> Resource
     
-    init(client: HTTPClient, mapper: @escaping Mapper) {
+    init(_ requestURL: URL, client: HTTPClient, mapper: @escaping Mapper) {
+        self.requestURL = requestURL
         self.client = client
         self.mapper = mapper
     }
     
-    func execute(_ request: URLRequest, completion: @escaping (Result) -> Void) {
+    func execute(_ completion: @escaping (Result) -> Void) {
+        let request = URLRequest(url: requestURL)
         client.dispatch(request) { [weak self] result in
             guard let self = self else { return }
             switch result {
@@ -35,8 +38,10 @@ final class RemoteLoader<Resource> {
             }
         }
     }
-    
-    private func map(_ data: Data, from response: HTTPURLResponse) -> Result {
+}
+
+private extension RemoteLoader {
+    func map(_ data: Data, from response: HTTPURLResponse) -> Result {
         do {
             return .success(try mapper(data, response))
         } catch {
