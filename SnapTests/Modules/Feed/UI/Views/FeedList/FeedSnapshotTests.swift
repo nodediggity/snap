@@ -18,7 +18,7 @@ class FeedSnapshotTests: XCTestCase {
         let viewModel = FeedViewModel(loader: { $0(.success(content)) })
         let sut = makeSUT(viewModel: viewModel)
         sut.view.enforceLayoutCycle()
-        viewModel.load()
+        viewModel.loadFeed()
         
         assert(snapshot: sut.snapshot(for: .iPhone8(style: .light)), named: "FEED_WITH_CONTENT_light")
         executeRunLoopToCleanUpReferences()
