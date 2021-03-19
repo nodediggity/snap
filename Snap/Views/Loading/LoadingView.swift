@@ -9,16 +9,16 @@ import Foundation
 import SwiftUI
 
 struct LoadingView: View {
-
+    
     @State private var scale: CGFloat = 0
     @State private var opacity: Double = 0
-
+    
     var body: some View {
         let animation = Animation
-            .easeIn(duration: 1.25)
+            .easeOut(duration: 1.25)
             .repeatForever(autoreverses: false)
-
-        return Circle()
+        
+        Circle()
             .scaleEffect(scale)
             .opacity(opacity)
             .onAppear {
