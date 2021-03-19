@@ -70,6 +70,7 @@ private extension FeedViewModelTests {
         let loader = LoaderSpy()
         let sut = FeedViewModel(loadFeedPublisher: loader.loadFeedPublisher)
         trackForMemoryLeaks(loader, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
     }
     
