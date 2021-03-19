@@ -43,13 +43,13 @@ class FeedViewModelTests: XCTestCase {
     func test_load_does_not_deliver_result_after_instance_has_been_deallocated() {
         let loader = LoaderSpy()
         let feed = makeFeed()
-        var sut: FeedViewModel? = FeedViewModel(loader: loader.loadFeed(completion:))
+        var sut: FeedViewModel? = FeedViewModel(loadFeedPublisher: loader.loadFeedPublisher)
 
         var output: [Any] = []
         sut?.onFeedLoad = { output.append($0) }
         sut?.load()
         sut = nil
-        
+
         loader.loadFeedCompletes(with: .success(feed))
         XCTAssertTrue(output.isEmpty)
      }
@@ -59,7 +59,7 @@ private extension FeedViewModelTests {
     
     func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedViewModel, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = FeedViewModel(loader: loader.loadFeed(completion:))
+        let sut = FeedViewModel(loadFeedPublisher: loader.loadFeedPublisher)
         trackForMemoryLeaks(loader, file: file, line: line)
         return (sut, loader)
     }
@@ -70,15 +70,35 @@ private extension FeedViewModelTests {
             return requests.count
         }
         
-        private var requests: [FeedLoaderCompletion] = []
+        private var requests: [PassthroughSubject<[Post], Error>] = []
         
-        func loadFeed(completion: @escaping FeedLoaderCompletion) {
-            requests.append(completion)
+        func loadFeedPublisher() -> AnyPublisher<[Post], Error> {
+            let publisher = PassthroughSubject<[Post], Error>()
+            requests.append(publisher)
+            return publisher.eraseToAnyPublisher()
         }
         
         func loadFeedCompletes(with result: FeedLoaderResult, at index: Int = 0) {
-            requests[index](result)
+            switch result {
+                case let .success(feed):
+                    requests[index].send(feed)
+                default: break
+            }
         }
+        
+//        var loadFeedCount: Int {
+//            return requests.count
+//        }
+//
+//        private var requests: [FeedLoaderCompletion] = []
+//
+//        func loadFeed(completion: @escaping FeedLoaderCompletion) {
+//            requests.append(completion)
+//        }
+//
+//        func loadFeedCompletes(with result: FeedLoaderResult, at index: Int = 0) {
+//            requests[index](result)
+//        }
     }
     
     func makeFeed(itemCount: Int = 5) -> [Post] {
