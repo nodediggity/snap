@@ -24,7 +24,7 @@ final class FeedViewModel: ObservableObject {
         self.loader = loader
     }
     
-    func load() {
+    func loadFeed() {
         onLoadingStateChange?(true)
         loader { [weak self] result in
             if let feed = try? result.get() {
