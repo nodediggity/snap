@@ -25,6 +25,21 @@ extension HTTPClient {
     }
 }
 
+// MARK:- ImageDataLoader
+extension ImageDataLoader {
+    typealias Publisher = AnyPublisher<Data, Error>
+    func loadImageDataPublisher(from url: URL) -> Publisher {
+        var task: ImageDataLoaderTask?
+        return Deferred {
+            Future { completion in
+                task = self.load(imageFrom: url, completion: completion)
+            }
+        }
+        .handleEvents(receiveCancel: { task?.cancel() })
+        .eraseToAnyPublisher()
+    }
+}
+
 // MARK:- FeedViewModel
 extension FeedViewModel {
     convenience init(loadFeedPublisher publisher: @escaping () -> AnyPublisher<[Post], Error>) {
