@@ -24,7 +24,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = FeedUIComposer.compose(loader: makeFeedLoader)
+            
+            window.rootViewController = FeedUIComposer.compose(
+                loader: makeFeedLoader,
+                imageLoader: makeImageLoader
+            )
+            
             self.window = window
             window.makeKeyAndVisible()
         }
