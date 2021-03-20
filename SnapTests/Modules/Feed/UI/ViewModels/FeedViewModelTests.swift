@@ -106,5 +106,4 @@ private extension FeedViewModelTests {
             )
         }
     }
-        
 }
