@@ -11,7 +11,7 @@ final class AsyncImageViewModel<Image>: ObservableObject where Image: Equatable 
 
     typealias LoaderResult = Result<Data, Error>
     typealias LoaderCompletion = (LoaderResult) -> Void
-    typealias Loader = (URL, @escaping LoaderCompletion) -> HTTPClientTask
+    typealias Loader = (URL, @escaping LoaderCompletion) -> ImageDataLoaderTask
     
     @Published var state: ViewState<Image> = .loading
 
@@ -20,7 +20,7 @@ final class AsyncImageViewModel<Image>: ObservableObject where Image: Equatable 
     
     private var imageTransformer: (Data) -> Image?
     
-    private var task: HTTPClientTask?
+    private var task: ImageDataLoaderTask?
         
     init(imageURL: URL, loader: @escaping Loader, imageTransformer: @escaping (Data) -> Image?) {
         self.imageURL = imageURL

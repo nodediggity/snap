@@ -52,6 +52,66 @@ extension FeedViewModel {
     }
 }
 
+// MARK:- AsyncImageViewModel
+extension AsyncImageViewModel {
+    typealias Publisher = AnyPublisher<Data, Error>
+    convenience init(imageURL: URL, loadImagePublisher publisher: @escaping (URL) -> Publisher, imageTransformer: @escaping (Data) -> Image?) {
+        self.init(imageURL: imageURL, loader: { url, completion in
+            
+            var cancellable: AnyCancellable?
+            
+            let task = ImageDataLoaderTaskWrapper(completion)
+   
+            cancellable = publisher(imageURL)
+                .handleEvents(receiveCancel: { task.cancel() })
+                .sink(
+                    receiveCompletion: { completion in
+                        if case let .failure(error) = completion {
+                            task.complete(with: .failure(error))
+                        }
+                        cancellable?.cancel()
+                        cancellable = nil
+                        task.cancel()
+                    },
+                    receiveValue: { imageData in task.complete(with: .success(imageData)) }
+                )
+   
+            task.onCancel = cancellable?.cancel
+            
+            return task
+            
+        }, imageTransformer: imageTransformer)
+    }
+    
+    private class ImageDataLoaderTaskWrapper: ImageDataLoaderTask {
+        
+        var wrapped: ImageDataLoaderTask?
+        var onCancel: (() -> Void)?
+        
+        private var completion: ((ImageDataLoader.Result) -> Void)?
+        
+        init(_ completion: @escaping (ImageDataLoader.Result) -> Void) {
+            self.completion = completion
+        }
+        
+        func complete(with result: ImageDataLoader.Result) {
+            completion?(result)
+        }
+        
+        func cancel() {
+            preventFurtherCompletions()
+            wrapped?.cancel()
+            onCancel?()
+        }
+        
+        private func preventFurtherCompletions() {
+            completion = nil
+        }
+    }
+    
+}
+
+
 // MARK:- Threading
 extension Publisher {
     func dispatchOnMainQueue() -> AnyPublisher<Output, Failure> {
@@ -106,3 +166,4 @@ extension DispatchQueue {
         }
     }
 }
+
