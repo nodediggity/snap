@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     
     private var APP_ID: String { "605448f84977a585e87b67f8" }
+    private var APP_ID_KEY: String { "app-id" }
     
     private lazy var httpClient: HTTPClient = {
         return URLSessionHTTPClient(session: .init(configuration: .ephemeral))
@@ -42,5 +43,15 @@ private extension SceneDelegate {
             .dispatchOnMainQueue()
             .eraseToAnyPublisher()
     }
+    
+    func makeImageLoader(_ imageURL: URL) -> AnyPublisher<Data, Error> {
+        var request = URLRequest(url: imageURL)
+        request.addValue(APP_ID, forHTTPHeaderField: APP_ID_KEY)
+        
+        return httpClient
+            .dispatchPublisher(for: request)
+            .tryMap(ImageDataMapper.map)
+            .dispatchOnMainQueue()
+            .eraseToAnyPublisher()
+    }
 }
-
