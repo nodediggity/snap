@@ -6,6 +6,8 @@
 //
 
 import XCTest
+import Combine
+
 @testable import Snap
 
 class AsyncImageViewModelTests: XCTestCase {
@@ -67,7 +69,7 @@ private extension AsyncImageViewModelTests {
     ) -> (sut: AsyncImageViewModel<String>, loader: LoaderSpy) {
         
         let loader = LoaderSpy()
-        let sut = AsyncImageViewModel(imageURL: imageURL ?? makeURL(), loader: loader.loadImage, imageTransformer: imageTransformer)
+        let sut = AsyncImageViewModel(imageURL: imageURL ?? makeURL(), loadImagePublisher: loader.loadImagePublisher, imageTransformer: imageTransformer)
         
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
@@ -75,10 +77,7 @@ private extension AsyncImageViewModelTests {
     }
     
     class LoaderSpy {
-        
-        typealias ImageLoaderResult = AsyncImageViewModel<String>.LoaderResult
-        typealias ImageLoaderCompletion = AsyncImageViewModel<String>.LoaderCompletion
-        
+                
         var loadImageCount: Int {
             return requests.count
         }
@@ -89,23 +88,43 @@ private extension AsyncImageViewModelTests {
         
         private(set) var cancelledRequests: [URL] = []
         
-        private var requests: [(url: URL, completion: ImageLoaderCompletion)] = []
+        private var requests: [(url: URL, publisher: PassthroughSubject<Data, Error>)] = []
         
-        func loadImage(_ url: URL, completion: @escaping ImageLoaderCompletion) -> HTTPClientTask {
-            requests.append((url, completion))
-            return NullTask { [weak self] in self?.cancelledRequests.append(url) }
+        func loadImagePublisher(_ url: URL) -> AnyPublisher<Data, Error> {
+            let publisher = PassthroughSubject<Data, Error>()
+            requests.append((url, publisher))
+            return publisher
+                .handleEvents(receiveCancel: { [weak self] in
+                    self?.cancelledRequests.append(url)
+                }).eraseToAnyPublisher()
         }
         
-        func loadImageCompletes(with result: ImageLoaderResult, at index: Int = 0) {
-            requests[index].completion(result)
-        }
-        
-        private struct NullTask: HTTPClientTask {
-            var callback: () -> Void
-            func cancel() {
-                callback()
+        func loadImageCompletes(with result: AsyncImageViewModel<String>.LoaderResult, at index: Int = 0) {
+            switch result {
+                case let .success(imageData):
+                    requests[index].publisher.send(imageData)
+                    requests[index].publisher.send(completion: .finished)
+                default: break
             }
         }
+        
+//        private var requests: [(url: URL, completion: ImageLoaderCompletion)] = []
+//
+//        func loadImage(_ url: URL, completion: @escaping ImageLoaderCompletion) -> ImageDataLoaderTask {
+//            requests.append((url, completion))
+//            return TaskSpy { [weak self] in self?.cancelledRequests.append(url) }
+//        }
+//
+//        func loadImageCompletes(with result: ImageLoaderResult, at index: Int = 0) {
+//            requests[index].completion(result)
+//        }
+//
+//        private struct TaskSpy: ImageDataLoaderTask {
+//            var callback: () -> Void
+//            func cancel() {
+//                callback()
+//            }
+//        }
         
     }
 }
