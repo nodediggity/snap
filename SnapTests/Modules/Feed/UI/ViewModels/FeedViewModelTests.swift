@@ -32,21 +32,19 @@ class FeedViewModelTests: XCTestCase {
         sut.loadFeed()
         loader.loadFeedCompletes(with: .success(feed))
         
-        XCTAssertEqual(sut.feed, feed)
+        XCTAssertEqual(sut.state, .loaded(feed))
     }
-
 
     func test_on_load_feed_notifies_clients_of_loading_state_change() {
         let feed = makeFeed()
         let (sut, loader) = makeSUT()
 
-        XCTAssertFalse(sut.isLoading)
 
         sut.loadFeed()
-        XCTAssertTrue(sut.isLoading)
+        XCTAssertEqual(sut.state, .loading)
 
         loader.loadFeedCompletes(with: .success(feed))
-        XCTAssertFalse(sut.isLoading)
+        XCTAssertEqual(sut.state, .loaded(feed))
     }
 }
 

@@ -14,17 +14,29 @@ struct FeedListView: View {
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            if viewModel.isLoading {
-                LoadingView()
-                    .frame(width: 50.0, height: 50.0)
-                    .foregroundColor(Color("3dc6a7"))
-            } else {
-                ForEach(viewModel.feed, id: \.id) { item in
-                    Text("Post \(item.id)")
-                }
-            }
+            renderViewFor(viewModel.state)
         }
         .onAppear(perform: viewModel.loadFeed)
         .padding()
+    }
+}
+
+private extension FeedListView {
+    func renderViewFor(_ state: ViewState<[Post]>) -> some View  {
+        return Group {
+            
+            if case .loading = state {
+                LoadingView()
+                    .frame(width: 50.0, height: 50.0)
+                    .foregroundColor(Color("3dc6a7"))
+            }
+            
+            if case let .loaded(feed) = state {
+                ForEach(feed, id: \.id) { item in
+                    Text("Post \(item.id)")
+                }
+            }
+            
+        }
     }
 }
