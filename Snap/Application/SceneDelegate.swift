@@ -41,7 +41,8 @@ private extension SceneDelegate {
     // MARK:- Loaders
     func makeFeedLoader() -> AnyPublisher<[Post], Error> {
         var request = URLRequest(endpoint: .feed())
-        request.addValue(APP_ID, forHTTPHeaderField: "app-id")
+        request.addValue(APP_ID, forHTTPHeaderField: APP_ID_KEY)
+        
         return httpClient
             .dispatchPublisher(for: request)
             .tryMap(FeedMapper.map)
