@@ -13,11 +13,10 @@ struct FeedListView: View {
     @ObservedObject private(set) var viewModel: FeedViewModel
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            renderViewFor(viewModel.state)
-        }
-        .onAppear(perform: viewModel.loadFeed)
-        .padding()
+        
+        renderViewFor(viewModel.state)
+            .onAppear(perform: viewModel.loadFeed)
+            .padding()
     }
 }
 
@@ -32,8 +31,12 @@ private extension FeedListView {
             }
             
             if case let .loaded(feed) = state {
-                ForEach(feed, id: \.id) { item in
-                    Text("Post \(item.id)")
+                ScrollView(.vertical, showsIndicators: true) {
+                    LazyVStack(spacing: 0) {
+                        ForEach(feed, id: \.id) { item in
+                            Text("Post \(item.id)")
+                        }
+                    }
                 }
             }
             
