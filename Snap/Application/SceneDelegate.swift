@@ -20,7 +20,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return URLSessionHTTPClient(session: .init(configuration: .ephemeral))
     }()
     
-    private lazy var navController = UINavigationController(rootViewController: makeFeedScene())
+    private lazy var navController: UINavigationController = {
+        let controller = UINavigationController(rootViewController: makeFeedScene())
+        controller.navigationBar.isHidden = true
+        return controller
+    }()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
