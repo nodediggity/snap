@@ -10,7 +10,6 @@ import SwiftUI
 
 struct FeedListView: View {
     
-    @EnvironmentObject var imageProvider: ImageLoaderProvider
     @ObservedObject private var viewModel: FeedViewModel
     
     init(viewModel: FeedViewModel) {
@@ -29,19 +28,12 @@ struct FeedListView: View {
                     
                 case let .loaded(feed):
                     ScrollView(.vertical, showsIndicators: true) {
-                        LazyVStack(spacing: 0) {
+                        VStack(spacing: 0) {
                             ForEach(feed, id: \.id) { item in
-                                
-                                AsyncImageView(
-                                    viewModel: .init(
-                                        imageURL: item.imageURL,
-                                        loadImagePublisher: imageProvider.make(),
-                                        imageTransformer: UIImage.init
-                                    )
-                                ).frame(height: 400)
-                                
+                                FeedCard(item: item)
                             }
                         }
+                        .background(Color(.systemBackground))
                     }
                 default: EmptyView()
             }
