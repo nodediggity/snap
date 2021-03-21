@@ -25,6 +25,7 @@ enum FeedUIComposer {
             .environmentObject(ImageLoaderProvider(imageLoader))
         
         let viewController = UIHostingController(rootView: rootView)
+        viewController.navigationItem.title = "Your Feed"
         return viewController
     }
 }
