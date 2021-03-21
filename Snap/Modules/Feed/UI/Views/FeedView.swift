@@ -33,7 +33,7 @@ struct FeedView: View {
                     }
                     
                 case .loaded:
-                    Image("search_icon")
+                    Image("search_background_icon")
                         .resizable()
                         .renderingMode(.template)
                         .foregroundColor(Color(.secondaryLabel))
