@@ -11,7 +11,7 @@ import SwiftUI
 struct FeedCard: View {
     
     @EnvironmentObject private var imageProvider: ImageLoaderProvider
-
+    
     private let item: Post
     
     init(item: Post) {
@@ -35,31 +35,8 @@ struct FeedCard: View {
                     )
                 ).frame(height: 500)
                 
-                HStack {
-                    Text(item.user.name)
-                        .foregroundColor(Color(.label))
-                        .font(.body)
-                        .offset(x: 56)
-                    Spacer()
-                    HStack {
-                        Image("heart_icon")
-                            .resizable()
-                            .renderingMode(.template)
-                            .foregroundColor(Color(.label))
-                            .frame(width: 18, height: 18)
-                        Text("\(item.likeCount)")
-                            .foregroundColor(Color(.label))
-                            .font(.footnote)
-                        
-                        Image("bookmark_icon")
-                            .resizable()
-                            .renderingMode(.template)
-                            .foregroundColor(Color(.label))
-                            .frame(width: 18, height: 18)
-                    }
-                }
-                .padding()
-                .background(Color(.secondarySystemBackground))
+                FeedCardFooterView(name: item.user.name, likes: item.likeCount)
+                    .background(Color(.secondarySystemBackground))
             }
         }
     }
