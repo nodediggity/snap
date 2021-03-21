@@ -56,6 +56,7 @@
 		6AE3DC862607295100BCA7E0 /* FeedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3DC852607295100BCA7E0 /* FeedCard.swift */; };
 		6AE3DC8D26072C2800BCA7E0 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3DC8C26072C2800BCA7E0 /* ListView.swift */; };
 		6AE3DC9126072CF000BCA7E0 /* FeedCardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3DC9026072CF000BCA7E0 /* FeedCardFooterView.swift */; };
+		6AE3DC9626072DD600BCA7E0 /* InteractionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE3DC9526072DD600BCA7E0 /* InteractionsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +123,7 @@
 		6AE3DC852607295100BCA7E0 /* FeedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCard.swift; sourceTree = "<group>"; };
 		6AE3DC8C26072C2800BCA7E0 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		6AE3DC9026072CF000BCA7E0 /* FeedCardFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCardFooterView.swift; sourceTree = "<group>"; };
+		6AE3DC9526072DD600BCA7E0 /* InteractionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +181,7 @@
 		6A0BE870260653F100EA64EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6AE3DC9426072DBE00BCA7E0 /* InteractionsView */,
 				6AE3DC8B26072C2100BCA7E0 /* ListView */,
 				6AE3DC79260726B200BCA7E0 /* AvatarView */,
 				6A0BE871260653F500EA64EB /* AsnycImageView */,
@@ -553,6 +556,14 @@
 			path = ListView;
 			sourceTree = "<group>";
 		};
+		6AE3DC9426072DBE00BCA7E0 /* InteractionsView */ = {
+			isa = PBXGroup;
+			children = (
+				6AE3DC9526072DD600BCA7E0 /* InteractionsView.swift */,
+			);
+			path = InteractionsView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -656,6 +667,7 @@
 			files = (
 				6ADACCA42603BE17004E2A05 /* AppDelegate.swift in Sources */,
 				6AA5500626047BF500AC82A9 /* FeedUIComposer.swift in Sources */,
+				6AE3DC9626072DD600BCA7E0 /* InteractionsView.swift in Sources */,
 				6AA5501D26047F4700AC82A9 /* Endpoints.swift in Sources */,
 				6A2D1E752603BF980011F299 /* URLSessionHTTPClient.swift in Sources */,
 				6ADACCA62603BE17004E2A05 /* SceneDelegate.swift in Sources */,

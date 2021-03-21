@@ -25,22 +25,7 @@ struct FeedCardFooterView: View {
                 .font(.body)
                 .offset(x: 56)
             Spacer()
-            HStack {
-                Image("heart_icon")
-                    .resizable()
-                    .renderingMode(.template)
-                    .foregroundColor(Color(.label))
-                    .frame(width: 18, height: 18)
-                Text("\(likes)")
-                    .foregroundColor(Color(.label))
-                    .font(.footnote)
-                
-                Image("bookmark_icon")
-                    .resizable()
-                    .renderingMode(.template)
-                    .foregroundColor(Color(.label))
-                    .frame(width: 18, height: 18)
-            }
+            InteractionsView(likes: likes)
         }
         .padding()
     }
