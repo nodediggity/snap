@@ -26,19 +26,22 @@ struct AsyncImageView: View {
             switch viewModel.state {
                 case .loading:
                     Color(.tertiarySystemFill)
-                        // .shimmer() - This modifier seems to be causing a 40 - 50 mb spike in memory usage...
+                         .shimmer()
                         .onAppear(perform: viewModel.loadImage)
                 case let .loaded(image):
-                    Image(uiImage: image)
+                    Color.clear
+                    .overlay(
+                        Image(uiImage: image)
                         .resizable()
-                        .aspectRatio(contentMode: .fill)
+                        .scaledToFill()
+                    )
+                    .clipped()
                 case .error where canRetry:
                     Text("oops.")
                 default:
                     EmptyView()
             }
         }
-        .frame(maxWidth: .infinity)
         .onDisappear(perform: viewModel.cancel)
     }
 }
