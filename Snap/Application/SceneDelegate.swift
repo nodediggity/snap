@@ -20,15 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return URLSessionHTTPClient(session: .init(configuration: .ephemeral))
     }()
     
+    private lazy var navController = UINavigationController(rootViewController: makeFeedScene())
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             
-            window.rootViewController = FeedUIComposer.compose(
-                loader: makeFeedLoader,
-                imageLoader: makeImageLoader
-            )
+            window.rootViewController = navController
             
             self.window = window
             window.makeKeyAndVisible()
@@ -59,5 +58,13 @@ private extension SceneDelegate {
             .tryMap(ImageDataMapper.map)
             .dispatchOnMainQueue()
             .eraseToAnyPublisher()
+    }
+    
+    // MARK:- Scenes
+    func makeFeedScene() -> UIViewController {
+        return FeedUIComposer.compose(
+            loader: makeFeedLoader,
+            imageLoader: makeImageLoader
+        )
     }
 }
