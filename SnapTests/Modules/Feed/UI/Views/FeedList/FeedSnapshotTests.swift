@@ -27,7 +27,7 @@ class FeedSnapshotTests: XCTestCase {
 
 private extension FeedSnapshotTests {
     func makeSUT(viewModel: FeedViewModel) -> UIViewController {
-        let rootView = FeedListView(viewModel: viewModel)
+        let rootView = FeedView(viewModel: viewModel)
         let controller = UIHostingController(rootView: rootView)
         controller.loadViewIfNeeded()
         return controller
