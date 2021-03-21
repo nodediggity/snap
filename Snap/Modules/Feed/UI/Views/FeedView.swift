@@ -26,10 +26,27 @@ struct FeedView: View {
                         .foregroundColor(Color("3dc6a7"))
                         .onAppear(perform: viewModel.loadFeed)
                     
-                case let .loaded(feed):
-                    
+                case let .loaded(feed) where !feed.isEmpty:
+
                     ListView(items: feed) { item in
                         FeedCard(item: item)
+                    }
+                    
+                case .loaded:
+                    Image("search_icon")
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(Color(.secondaryLabel))
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 140)
+                    VStack {
+                        Text("It looks like you haven't followed anyone")
+                            .font(.headline)
+                            .foregroundColor(Color(.label))
+                        Text("Search for & discover new content")
+                            .font(.headline)
+                            .foregroundColor(Color(.secondaryLabel))
+                            .padding(.top, 8)
                     }
                     
                 default: EmptyView()
