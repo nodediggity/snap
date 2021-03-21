@@ -26,16 +26,16 @@ struct AsyncImageView: View {
             switch viewModel.state {
                 case .loading:
                     Color(.tertiarySystemFill)
-                         .shimmer()
+                        .shimmer()
                         .onAppear(perform: viewModel.loadImage)
                 case let .loaded(image):
                     Color.clear
-                    .overlay(
-                        Image(uiImage: image)
-                        .resizable()
-                        .scaledToFill()
-                    )
-                    .clipped()
+                        .overlay(
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                        )
+                        .clipped()
                 case .error where canRetry:
                     Text("oops.")
                 default:
