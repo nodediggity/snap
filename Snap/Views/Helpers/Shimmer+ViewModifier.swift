@@ -34,8 +34,8 @@ struct Shimmer: ViewModifier {
 
 private extension Shimmer {
     var gradient: Gradient {
-        let alpha = UIColor.white.withAlphaComponent(0.75).cgColor
-        let white = UIColor.white.cgColor
+        let alpha = UIColor.tertiarySystemBackground.withAlphaComponent(0.75).cgColor
+        let white = UIColor.secondarySystemBackground.cgColor
         let gradient = Gradient(stops: [
             .init(color: Color(alpha), location: 0.4),
             .init(color: Color(white), location: 0.5),
