@@ -13,8 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     
-    private var APP_ID: String { "605448f84977a585e87b67f8" }
-    private var APP_ID_KEY: String { "app-id" }
+    private var APP_ID: String { Constants.API_KEY }
+    private var APP_ID_KEY: String { Constants.API_ID }
     
     private lazy var httpClient: HTTPClient = {
         return URLSessionHTTPClient(session: .init(configuration: .ephemeral))
